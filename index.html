@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Toggle with Animation</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 1s ease-in-out, color 1s ease-in-out;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #myButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #myButton:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #myText {
+            display: none;
+            font-size: 2em;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        /* Cool pulse effect when text appears */
+        #myText.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Fade out button animation */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <button id="myButton" onclick="changeBackground()">Click Me</button>
+    <p id="myText" class="pulse">Weetod Code</p>
+
+    <script>
+        function changeBackground() {
+            // Change background and text color with smooth transition
+            document.body.style.backgroundColor = "black";
+            document.body.style.color = "white";
+
+            // Animate button disappearance
+            const button = document.getElementById("myButton");
+            button.classList.add("fade-out");
+            setTimeout(() => {
+                button.style.display = "none";
+            }, 500); // Wait for fade-out to complete before hiding the button
+
+            // Make text visible and apply the pulse animation
+            const text = document.getElementById("myText");
+            text.style.display = "block";
+            setTimeout(() => {
+                text.style.opacity = "1";
+            }, 100); // Slight delay for smoother appearance
+        }
+    </script>
+</body>
+</html>
