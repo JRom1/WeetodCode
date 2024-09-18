@@ -3,94 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Toggle with Animation</title>
+    <title>Ultimate Background Toggle with Blue Effects</title>
     <style>
         body {
             background-color: white;
             color: black;
             text-align: center;
             font-family: 'Poppins', sans-serif;
-            transition: background-color 1s ease-in-out, color 1s ease-in-out;
-            overflow: hidden;
-            height: 100vh;
             margin: 0;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color 1s ease, color 1s ease;
+            overflow: hidden;
         }
 
         #myButton {
-            background-color: #4CAF50;
+            background-color: #007BFF; /* Blue button */
             color: white;
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 15px 40px;
+            font-size: 22px;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.7), inset 0 0 10px rgba(0, 123, 255, 0.5);
         }
 
+        /* Cool button glow on hover */
         #myButton:hover {
-            background-color: #45a049;
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            background-color: #0056b3;
+            transform: scale(1.2);
+            box-shadow: 0 0 30px rgba(0, 123, 255, 1), inset 0 0 20px rgba(0, 123, 255, 0.8);
         }
 
+        /* Button ripple effect */
+        #myButton::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.5) 10%, transparent 10.01%);
+            background-size: 50% 50%;
+            transition: all 0.75s ease;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0.8;
+            border-radius: 50%;
+        }
+
+        #myButton:active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Hidden text that fades in and rotates */
         #myText {
             display: none;
-            font-size: 2em;
+            font-size: 2.5em;
             opacity: 0;
-            transition: opacity 1s ease;
+            transform: rotate(0deg);
+            transition: opacity 1s ease, transform 1s ease;
+            background-color: #007BFF; /* Blue background for text box */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.7), inset 0 0 10px rgba(0, 123, 255, 0.5);
         }
 
-        /* Cool pulse effect when text appears */
-        #myText.pulse {
-            animation: pulse 2s infinite;
+        /* Rotating and scaling text after appearing */
+        #myText.animate {
+            transform: rotate(360deg) scale(1.2);
+            animation: glow-text 1.5s ease-in-out infinite;
         }
 
-        @keyframes pulse {
+        /* Glowing text animation */
+        @keyframes glow-text {
             0% {
-                transform: scale(1);
+                text-shadow: 0 0 10px #fff, 0 0 20px #007BFF, 0 0 30px #007BFF, 0 0 40px #007BFF, 0 0 50px #007BFF;
             }
             50% {
-                transform: scale(1.05);
+                text-shadow: 0 0 20px #fff, 0 0 30px #007BFF, 0 0 40px #007BFF, 0 0 50px #007BFF, 0 0 60px #007BFF;
             }
             100% {
-                transform: scale(1);
+                text-shadow: 0 0 10px #fff, 0 0 20px #007BFF, 0 0 30px #007BFF, 0 0 40px #007BFF, 0 0 50px #007BFF;
             }
         }
 
-        /* Fade out button animation */
+        /* Cool fading out effect for the button */
         .fade-out {
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transform: scale(0.8);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        /* Background glow effect when button is clicked */
+        .bg-glow {
+            box-shadow: 0 0 100px rgba(0, 123, 255, 0.5);
         }
     </style>
 </head>
 <body>
-    <button id="myButton" onclick="changeBackground()">Click Me</button>
-    <p id="myText" class="pulse">Weetod Code</p>
+    <button id="myButton" onclick="changeBackground()">Click Me!</button>
+    <p id="myText">Weetod Coding!</p>
 
     <script>
         function changeBackground() {
-            // Change background and text color with smooth transition
-            document.body.style.backgroundColor = "black";
-            document.body.style.color = "white";
+            // Change background color and text color
+            document.body.style.backgroundColor = "#1a1a1d";
+            document.body.style.color = "#ffffff";
 
-            // Animate button disappearance
+            // Add background glow effect
+            document.body.classList.add("bg-glow");
+
+            // Make button fade out and text fade in
             const button = document.getElementById("myButton");
             button.classList.add("fade-out");
             setTimeout(() => {
                 button.style.display = "none";
-            }, 500); // Wait for fade-out to complete before hiding the button
+            }, 1000);
 
-            // Make text visible and apply the pulse animation
+            // Animate text appearance
             const text = document.getElementById("myText");
             text.style.display = "block";
             setTimeout(() => {
                 text.style.opacity = "1";
-            }, 100); // Slight delay for smoother appearance
+                text.classList.add("animate");
+            }, 500); // Slight delay for a smoother effect
         }
     </script>
 </body>
